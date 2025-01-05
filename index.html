@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Learning App</title>
+    <style>
+        body {
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4b0082;
+        }
+        #word-container {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border: 2px solid #4b0082;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background-color: #4b0082;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #9370db;
+        }
+        input {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .word-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Learning App</h1>
+    <div id="word-container">
+        <button onclick="loadRecommendedWords()">Load Recommended Words</button>
+        <input type="text" id="new-word" placeholder="Enter a new word">
+        <button onclick="addWord()">Add Word</button>
+        <ul id="word-list"></ul>
+    </div>
+
+    <script>
+        const wordList = document.getElementById('word-list');
+        const recommendedWords = [
+            { word: "achieve", meaning: "to accomplish", korean: "성취하다" },
+            { word: "benefit", meaning: "an advantage", korean: "이익" },
+            { word: "culture", meaning: "customs and traditions", korean: "문화" },
+            { word: "develop", meaning: "to grow or improve", korean: "발전하다" },
+            { word: "effort", meaning: "hard work", korean: "노력" },
+            { word: "feature", meaning: "a characteristic", korean: "특징" },
+            { word: "govern", meaning: "to rule", korean: "다스리다" },
+            { word: "habit", meaning: "a regular practice", korean: "습관" },
+            { word: "identify", meaning: "to recognize", korean: "식별하다" },
+            { word: "justice", meaning: "fair treatment", korean: "정의" }
+        ];
+
+        function loadRecommendedWords() {
+            wordList.innerHTML = ""; // Clear the list
+            for (let i = 0; i < recommendedWords.length; i++) {
+                addWordToList(recommendedWords[i].word, recommendedWords[i].meaning, recommendedWords[i].korean);
+            }
+        }
+
+        function addWord() {
+            const newWordInput = document.getElementById('new-word');
+            const word = newWordInput.value.trim();
+            if (word) {
+                addWordToList(word, "(Add meaning manually)", "(Add Korean meaning manually)");
+                newWordInput.value = '';
+            }
+        }
+
+        function addWordToList(word, meaning, korean) {
+            const listItem = document.createElement('li');
+            listItem.className = 'word-item';
+            listItem.innerHTML = `
+                <span><strong>${word}:</strong> ${meaning} (<em>${korean}</em>)</span>
+                <button onclick="deleteWord(this)">Delete</button>
+            `;
+            wordList.appendChild(listItem);
+
+            scheduleReview(word);
+        }
+
+        function deleteWord(button) {
+            const listItem = button.parentElement;
+            wordList.removeChild(listItem);
+        }
+
+        function scheduleReview(word) {
+            const now = new Date();
+            const nextMorning = new Date();
+            nextMorning.setHours(8, 0, 0, 0);
+            if (nextMorning <= now) {
+                nextMorning.setDate(nextMorning.getDate() + 1);
+            }
+
+            const delay = nextMorning - now;
+
+            setTimeout(() => {
+                alert(`Review: ${word}`);
+            }, delay);
+        }
+    </script>
+</body>
+</html>
+<a href="https://link.coupang.com/a/b8j1Q6" target="_blank" referrerpolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/829270?subId=&traceId=V0-301-f5c692db558def48-I829270&w=728&h=90" alt=""></a>
+<script src="https://ads-partners.coupang.com/g.js"></script>
+<script>
+    new PartnersCoupang.G({"id":829291,"template":"carousel","trackingCode":"AF0428316","width":"680","height":"140","tsource":""});
+</script>
